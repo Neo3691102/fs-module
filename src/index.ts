@@ -1,18 +1,25 @@
-//import http from "node:http";
 import fs from "node:fs";
-
-
-fs.readFile("./src/notes.json", (err, content) => {
+ 
+const path = "./src/notes.json";
+const newNote = { id: 7, content: "Nueva nota" };
+ 
+fs.readFile(path, "utf8", (err, content) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+ 
+  const notes = JSON.parse(content);
+  notes.push(newNote);
+ 
+  fs.writeFile(path, JSON.stringify(notes), (err) => {
     if (err) {
       console.log(err);
-      return;
     }
-    console.log(content);
   });
+});
 
-//const requestListener: http.RequestListener = (req, res) => {
-  // completa tu código aquí
-//};
+
  
-//const server = http.createServer(requestListener);
-//server.listen(5500);
+
+
